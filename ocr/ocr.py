@@ -33,11 +33,3 @@ def picpath2words(pic_path):
   content = open(pic_path, 'rb').read()
   return pic2words(content)
 
-
-# TODO comment tests
-#print picpath2words(r'tests/assets/ocr.jpeg')
-#print picurl2words('https://test.hi2go.com/ocr.jpeg')
-#print picpath2words(r'tests/assets/ocr1.png')
-#print picurl2words('https://test.hi2go.com/ocr1.png')
-#print picpath2words(r'tests/assets/ocr3.jpg')
-#print picurl2words('https://test.hi2go.com/ocr3.jpg')
