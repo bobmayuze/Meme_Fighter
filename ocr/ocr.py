@@ -14,13 +14,19 @@ def pic2words(file_content):
 
   params = {"image": img}
   params = urllib.urlencode(params)
-  request = urllib2.Request(ocr_url, params)
-  request.add_header('Content-Type', 'application/x-www-form-urlencoded')
-  response = urllib2.urlopen(request)
-  content = response.read()
-  if (content):
+
+  try:
+    request = urllib2.Request(ocr_url, params)
+    request.add_header('Content-Type', 'application/x-www-form-urlencoded')
+    response = urllib2.urlopen(request)
+    content = response.read()
+    if (content):
       print(content)
-  return json.loads(content)['words_result'][0]['words']
+      return json.loads(content)['words_result'][0]['words']
+    return ''
+  except Exception as err:
+    print('Runtime error: ', err)
+    return ''
 
 
 # First group of words from picture URI
