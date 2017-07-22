@@ -90,7 +90,12 @@ def auto_reply(msg):
     get_meme_by_emotion(emotional_data)
     msg.sender.send_image("out.png")
     # Send emotion data to front-end server
-    # r = requests.post("http://10.2.12.201:9090/getData", data=emotional_data)
+    try:
+        r = requests.post("http://10.2.12.201:9090/getData", data=emotional_data)
+        print("req suceessfully made")
+    except:
+        return "你说什么我没听清"
+
     
     # return emotional_data
 
@@ -103,8 +108,13 @@ def auto_r(msg):
 
         get_meme()
         msg.sender.send_image("out.png")
-        return 
+        data["info"] = msg.text
+        try:
+            res = requests.post(apiUrl, data = data).json()
+        except:
+            print("Tuling is down...")
+        return res["text"]        # return 
     except:
-        print("photo cannot successfully load")
+        print("Tuling is down...")
         return "23333"
 
