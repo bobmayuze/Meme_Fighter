@@ -3,9 +3,11 @@
 import PIL
 from PIL import ImageFont, Image, ImageDraw
 import random 
+import os
 
 def get_meme():
 	font = ImageFont.truetype("/Users/user/Documents/Projects/Ultra_wechat/chinese_font.ttf", 22)
+	
 	img = Image.open("p.png")
 
 	# Find out the height and width of the target pic
@@ -24,6 +26,8 @@ def get_meme():
 	img.save("out.png")
 
 def get_meme_by_emotion(emotion):
-	
+	img_dir = "./source"
+
+	img = Image.open("./source/anger/" + random.choice(os.listdir("./source/anger")))
 	return "并不想理你，并向你扔了一只旋转狗"
 
