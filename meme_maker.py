@@ -39,10 +39,25 @@ def get_meme():
 	img.save("out.png")
 
 def get_meme_by_emotion(emotion):
-	img_dir = "./source"
+	print("GET IMG BY EMOTION ")
+	font = ImageFont.truetype("./chinese_font.ttf", 18)
+	major_emotion = max(emotion, key=emotion.get) 
+	print("Emotion mode is on ===>", major_emotion)
 
-	img = Image.open("./source/anger/" + random.choice(os.listdir("./source/anger")))
-	return "并不想理你，并向你扔了一只旋转狗"
+	img = Image.open("./source_img/"+major_emotion+"/" + random.choice(os.listdir("./source_img/"+major_emotion)))
+	file = "./source_text/" + major_emotion + "/text.txt"
+
+	width = img.size[0]
+	height = img.size[1]
+
+	msg = random_line(file)
+	dummy_msg = len(msg) * "**"
+
+	draw = ImageDraw.Draw(img)
+	tw, th = draw.textsize(dummy_msg)
+	draw.text(((width-tw)*0.15, height* 0.8),msg,(0,0,0),font=font)
+	img.save("out.png")	
+	# return "并不想理你，并向你扔了一只旋转狗"
 
 
-get_meme()
+# get_meme()

@@ -87,16 +87,20 @@ def auto_reply(msg):
     print("=================================")
     emotional_data = get_emotion_from_img(real_url)
     print(emotional_data)
+    get_meme_by_emotion(emotional_data)
+    msg.sender.send_image("out.png")
     # Send emotion data to front-end server
-    r = requests.post("http://10.2.12.201:9090/getData", data=emotional_data)
+    # r = requests.post("http://10.2.12.201:9090/getData", data=emotional_data)
     
-    return emotional_data
+    # return emotional_data
 
 @bot.register(bot.friends(), TEXT)
 def auto_r(msg):
-    print(">>>>>>>>>>>>>>>GET: \n",msg.raw)
+    print(">>>>>>>>>>>>>>>GET: \n",msg.text)
     try:
         print("==EXECUTRED==")
+        text_content = msg.text
+
         get_meme()
         msg.sender.send_image("out.png")
         return 
