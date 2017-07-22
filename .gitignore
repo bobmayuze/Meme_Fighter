@@ -1,3 +1,5 @@
+chart_board/*/node_modules
+*.DS_Store
 .*
-
 !.gitignore
+

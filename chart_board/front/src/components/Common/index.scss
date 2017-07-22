@@ -1,0 +1,10 @@
+.comp-common {
+  min-height:100vh;
+  height:100%;
+  display: flex;
+  width:100%;
+  .right-panel-wrap{
+    width: calc(100vw - 200px);
+    min-width:800px;
+  }
+}
