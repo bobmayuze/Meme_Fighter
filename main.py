@@ -56,19 +56,40 @@ def auto_reply(msg):
         except:
             return "Connection lost"
 
+@bot.register(Group, PICTURE)
+def auto_reply(msg):
+    # 如果是群聊，但没有被 @，则不回复
+    if isinstance(msg.chat, Group) and not msg.is_at:
+        try:
+            print("==Execute by pic in a group chat==")
+            get_meme()
+            msg.sender.send_image("out.png")
+            return 
+        except:
+            return "Connection lost"
+        # return
+    else:
+        # 回复消息内容和类型
+        try:
+            print("==Execute by pic in a group chat==")
+            get_meme()
+            msg.sender.send_image("out.png")
+            return "lolol"
+        except:
+            return "Connection lost"
+
 @bot.register(bot.friends(), PICTURE)
 def auto_reply(msg):
-    print(msg.raw)
-    # print (json.dumps(msg.raw, indent=4, sort_keys=True))
     raw_content = msg.raw['Content']
+    print(raw_content)
     url = re.findall("cdnurl=(.*) des",raw_content, re.S)
     real_url = re.findall("\"(.*)\"",url[0], re.S)[0]
     print("=================================")
     emotional_data = get_emotion_from_img(real_url)
     print(emotional_data)
-    # print(msg.raw['Content'])
-    # return "我还看不懂这个图呢"
-    msg.sender.send_image("new.gif")
+    # Send emotion data to front-end server
+    r = requests.post("http://10.2.12.201:9090/getData", data=emotional_data)
+    
     return emotional_data
 
 @bot.register(bot.friends(), TEXT)
