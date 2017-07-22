@@ -7,8 +7,6 @@ import json
 import re
 
 
-
-
 # Init the env, login
 bot = Bot()
 print("========INIT SUCCESSFULLY=====")
@@ -60,6 +58,8 @@ def auto_reply(msg):
 
 @bot.register(bot.friends(), PICTURE)
 def auto_reply(msg):
+    print(msg.raw)
+    # print (json.dumps(msg.raw, indent=4, sort_keys=True))
     raw_content = msg.raw['Content']
     url = re.findall("cdnurl=(.*) des",raw_content, re.S)
     real_url = re.findall("\"(.*)\"",url[0], re.S)[0]
@@ -68,6 +68,7 @@ def auto_reply(msg):
     print(emotional_data)
     # print(msg.raw['Content'])
     # return "我还看不懂这个图呢"
+    msg.sender.send_image("new.gif")
     return emotional_data
 
 @bot.register(bot.friends(), TEXT)

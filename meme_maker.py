@@ -8,8 +8,8 @@ import os
 def get_meme():
 	font = ImageFont.truetype("/Users/user/Documents/Projects/Ultra_wechat/chinese_font.ttf", 22)
 	
-	img = Image.open("p.png")
-
+	# img = Image.open("p.png")
+	img = Image.open("./source/anger/" + random.choice(os.listdir("./source/anger")))
 	# Find out the height and width of the target pic
 	width = img.size[0]
 	height = img.size[1]
