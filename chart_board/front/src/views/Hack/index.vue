@@ -1,9 +1,5 @@
 <template>
   <div id="hack-page">
-    hack-page
-    <template v-for="item in dataHack">
-      {{item}}
-    </template>
     <chart :dataHack="dataHack" :dataName="dataName"></chart>
   </div>
 </template>

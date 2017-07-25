@@ -1,6 +1,7 @@
 from wxpy import *
 from meme_maker import *
 from emotional import *
+from pymongo import *
 import requests
 import time
 import json
@@ -21,10 +22,12 @@ data = {
 }
 dummy_dict = dict()
 
-# @bot.register()
-# def just_print(msg):
-#     print("GET: \n",msg)
 
+
+# connect to mongodb
+client = MongoClient("mongodb://localhost:27017/")
+db = client.codemao_data_analysis_dbs
+collection = db.msg_records
 
 
 @bot.register(Group, TEXT)
@@ -91,7 +94,8 @@ def auto_reply(msg):
     msg.sender.send_image("out.png")
     # Send emotion data to front-end server
     try:
-        r = requests.post("http://10.2.12.201:9090/getData", data=emotional_data)
+        # r = requests.post("http://10.2.12.201:9090/getData", data=emotional_data)
+        r = requests.post("http://localhost:9090/getData", data=emotional_data)
         print("req suceessfully made")
     except:
         return "你说什么我没听清"
@@ -105,6 +109,7 @@ def auto_r(msg):
     try:
         print("==EXECUTRED==")
         text_content = msg.text
+        collection.insert_one(msg.raw)
 
         get_meme()
         msg.sender.send_image("out.png")
